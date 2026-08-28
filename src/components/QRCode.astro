@@ -1,0 +1,25 @@
+---
+import QRCode from 'qrcode';
+
+export interface Props {
+  value: string;
+  label?: string;
+  size?: number;
+}
+const { value, label, size = 220 } = Astro.props;
+
+let svg = '';
+try {
+  svg = await QRCode.toString(value, { type: 'svg', margin: 1, width: size, errorCorrectionLevel: 'M', color: { dark: '#000000', light: '#ffffff' } });
+} catch {}
+const title = label || value;
+---
+<div class="flex flex-col items-center gap-2">
+  <div class="bg-white p-2 sm:p-3 rounded-lg shadow-sm shrink-0" title={title} aria-label={`QR code for ${value}`}>
+    <Fragment set:html={svg} />
+  </div>
+  {label && <p class="text-[10px] uppercase tracking-widest opacity-50 text-center break-all max-w-[220px]">{label}</p>}
+</div>
+<style>
+  div :global(svg) { display: block; width: clamp(120px, 28vh, 200px); height: clamp(120px, 28vh, 200px); }
+</style>

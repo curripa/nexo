@@ -1,0 +1,35 @@
+# Dependencias
+node_modules/
+.pnpm-store
+
+# Build
+dist/
+.astro/
+.cache/
+.vercel
+.netlify
+
+# Logs y cache
+*.log
+*.tsbuildinfo
+.eslintcache
+
+# Sistema
+.DS_Store
+
+# Entornos
+*.env
+
+# Generado (se regenera en cada build/dev)
+src/data/generated/
+
+
+
+# Ficheros solo-workspace (no forman parte del sitio)
+openspec/
+openspec*.md
+curripa.txt
+bands.txt
+badncamp.txt
+.opencode/
+/recursos/

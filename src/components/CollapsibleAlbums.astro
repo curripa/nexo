@@ -1,0 +1,41 @@
+---
+import LinkButton from './LinkButton.astro';
+export interface Props {
+  albums: { albumId: string; title: string; bandcampUrl: string | null; year: number | null }[];
+}
+const { albums } = Astro.props;
+const count = albums.length;
+---
+{count > 0 ? (
+  <div class="collapsible-albums w-full" data-collapsible>
+    <button
+      type="button"
+      class="w-full border-2 border-current px-6 py-3 text-xs uppercase tracking-widest font-bold hover:-translate-y-0.5 transition-transform flex items-center justify-center gap-2"
+      aria-expanded="false"
+      data-toggle
+    >
+      <span>Albums ({count})</span><span aria-hidden="true" data-icon>▾</span>
+    </button>
+    <div class="hidden mt-3 flex flex-col gap-2" data-panel>
+      {albums.map((a) => (
+        <LinkButton href={a.bandcampUrl || '#'}>{a.title}{a.year ? ` — ${a.year}` : ''}</LinkButton>
+      ))}
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('[data-collapsible]').forEach((root) => {
+      const btn = root.querySelector('[data-toggle]');
+      const panel = root.querySelector('[data-panel]');
+      const icon = root.querySelector('[data-icon]');
+      if (!btn || !panel) return;
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.classList.toggle('hidden', expanded);
+        if (icon) icon.textContent = expanded ? '▾' : '▴';
+      });
+    });
+  </script>
+) : (
+  <p class="text-center text-xs opacity-60 italic">No discografía disponible</p>
+)}

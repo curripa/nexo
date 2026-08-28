@@ -1,0 +1,16 @@
+---
+export interface Props {
+  href: string;
+  label?: string;
+  external?: boolean;
+}
+const { href, label, external = true } = Astro.props;
+---
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  class="block w-full text-center border-2 border-current px-6 py-3 text-xs uppercase tracking-widest font-bold transition-transform duration-200 hover:-translate-y-0.5 bg-ink/80 backdrop-blur"
+>
+  <slot>{label}</slot>
+</a>

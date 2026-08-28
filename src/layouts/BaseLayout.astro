@@ -1,0 +1,62 @@
+---
+import "../styles/global.css";
+import config from "../data/config.json";
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = "CURRIPA", description = "" } = Astro.props;
+const curripaOrigin = (config as any).curripaOrigin.replace(/\/+$/, '');
+---
+<!DOCTYPE html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${curripaOrigin}/SVG/LogoCurripa-negro.svg`} media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href={`${curripaOrigin}/SVG/LogoCurripa.svg`} media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/jetbrainsmono/v24/tDba2o-flEEny0FZhsfKu5WU4xD-IQ-PuZJJXxfpAO-LfmOXmaI.woff2"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    />
+    <title>{title}</title>
+    <script is:inline>
+      const primary = String((navigator.languages && navigator.languages[0]) || navigator.language || "").toLowerCase();
+      const lang = primary.startsWith("es") ? "es" : primary.startsWith("en") ? "en" : "en";
+      document.documentElement.lang = lang;
+      document.documentElement.classList.toggle("lang-en", lang === "en");
+      document.documentElement.classList.toggle("lang-es", lang !== "en");
+    </script>
+
+  </head>
+  <body class="font-body">
+    <slot />
+    <div id="lightbox" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80" onclick="if (event.target === this) this.classList.add('hidden')">
+      <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain cursor-default" />
+    </div>
+  </body>
+</html>

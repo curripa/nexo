@@ -1,0 +1,9 @@
+---
+import config from '../data/config.json';
+const year = new Date().getFullYear();
+const curripaOrigin = (config as any).curripaOrigin.replace(/\/+$/, '');
+---
+<footer class="relative z-10 pt-1 sm:pt-2 text-center shrink-0">
+  <img src={`${curripaOrigin}/SVG/Curripa.svg`} alt="Curripa" class="h-4 sm:h-5 mx-auto mb-1 sm:mb-2" />
+  <p class="text-xs sm:text-sm text-paper">2008 - {year}</p>
+</footer>

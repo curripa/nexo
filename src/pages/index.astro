@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QRCode from '../components/QRCode.astro';
+import Footer from '../components/Footer.astro';
+import config from '../data/config.json';
+import linksData from '../data/generated/links.json';
+
+const curripaOrigin = (config as any).curripaOrigin.replace(/\/+$/, '');
+const baseLinksUrl = `${curripaOrigin}/nexo`;
+const sonaUrl = `${curripaOrigin}/sona`;
+const curripaUrl = `${curripaOrigin}/`;
+const bands = (linksData as any).bands as Array<{ id: string; name: string; yearsActive: string; logoUrl: string }>;
+---
+<BaseLayout title="CURRIPA" description="Enlaces oficiales de Curripa">
+  <main class="min-h-[100dvh] relative z-10 flex flex-col items-center justify-center px-4 py-2">
+    <div class="nexo-container w-full max-w-md flex-1 flex flex-col items-center justify-center gap-2 min-h-0 py-1">
+      <div class="flex flex-col items-center shrink-0">
+        <img src={`${curripaOrigin}/SVG/LogoCurripa.svg`} alt="Curripa" class="h-20 w-auto" />
+      </div>
+
+      <div class="w-full flex flex-col items-center gap-2 shrink-0">
+        <a href={curripaUrl} target="_blank" rel="noopener noreferrer" class="block hover:opacity-70 transition-opacity" aria-label="curripa.github.io">
+          <img src={`${curripaOrigin}/SVG/Curripa.svg`} alt="Curripa" class="h-7 w-auto" />
+        </a>
+        <a href={sonaUrl} target="_blank" rel="noopener noreferrer" class="font-heading text-3xl tracking-[0.35em] hover:opacity-70 transition-opacity block translate-x-[0.175em]" aria-label="SONA">SONA</a>
+      </div>
+
+      <div class="w-full shrink-0 py-1">
+        {bands.length > 0 ? (
+          <div class="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-1 sm:gap-y-1.5 lg:gap-y-3 grid-spine">
+            {bands.map((b) => (
+              <a href={`/nexo/${b.id}`} class="flex items-center p-1 hover:opacity-70 transition-opacity h-[40px] sm:h-[44px] lg:h-[56px]">
+                {b.logoUrl ? (
+                  <img src={b.logoUrl} alt={b.name} class="w-[120px] h-[32px] sm:w-[130px] sm:h-[36px] lg:w-[140px] lg:h-[44px] object-contain" loading="lazy" />
+                ) : (
+                  <span class="text-xs uppercase tracking-widest font-bold text-center">{b.name}</span>
+                )}
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="text-center text-sm opacity-60">Sin grupos disponibles</p>
+        )}
+      </div>
+
+      <style>
+        .grid-spine a:nth-child(odd) { justify-content: flex-end; padding-right: 0.5rem; }
+        .grid-spine a:nth-child(even) { justify-content: flex-start; padding-left: 0.5rem; }
+        .qr-index :global(svg) { width: clamp(110px, 18vh, 160px) !important; height: clamp(110px, 18vh, 160px) !important; }
+        @media (max-height: 700px) {
+          .nexo-container { gap: 8px !important; padding-top: 4px !important; padding-bottom: 4px !important; }
+          .qr-index { padding-top: 4px !important; padding-bottom: 4px !important; }
+          .qr-index :global(svg) { width: clamp(100px, 16vh, 135px) !important; height: clamp(100px, 16vh, 135px) !important; }
+        }
+        @media (max-height: 640px) {
+          .grid-spine { row-gap: 2px !important; }
+          .grid-spine a { height: 36px !important; }
+          .grid-spine img { height: 28px !important; }
+          .qr-index :global(svg) { width: clamp(90px, 15vh, 120px) !important; height: clamp(90px, 15vh, 120px) !important; }
+        }
+        @media (min-height: 850px) {
+          .grid-spine { row-gap: 8px !important; }
+          .grid-spine a { height: 46px !important; }
+          .grid-spine img { height: 36px !important; }
+          .qr-index :global(svg) { width: clamp(150px, 20vh, 220px) !important; height: clamp(150px, 20vh, 220px) !important; }
+        }
+        @media (min-height: 900px) {
+          .qr-index :global(svg) { width: clamp(170px, 22vh, 240px) !important; height: clamp(170px, 22vh, 240px) !important; }
+        }
+      </style>
+      <div class="qr-index flex-1 min-h-0 flex flex-col items-center justify-center py-1">
+        <QRCode value={baseLinksUrl} label="" />
+      </div>
+      <Footer />
+    </div>
+  </main>
+</BaseLayout>
