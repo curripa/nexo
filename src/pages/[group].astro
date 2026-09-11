@@ -26,7 +26,7 @@ const albums = band.albums || [];
         <img src={`${curripaOrigin}/SVG/LogoCurripa.svg`} alt="Curripa" class="h-20 w-auto" />
       </a>
 
-      <a href={curripaAnchor} target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 w-full hover:opacity-70 transition-opacity py-3 shrink-0" aria-label={`Ver ${band.name} en curripa.github.io`}>
+      <a href={curripaAnchor} class="flex flex-col items-center gap-2 w-full hover:opacity-70 transition-opacity py-3 shrink-0" aria-label={`Ver ${band.name} en curripa.github.io`}>
         {band.logoUrl ? (
           <img src={band.logoUrl} alt={band.name} class="max-h-[14vh] sm:max-h-28 w-auto max-w-xs object-contain" />
         ) : (
@@ -35,11 +35,11 @@ const albums = band.albums || [];
       </a>
 
       <div class="w-full flex flex-col items-center gap-1.5 pt-2 mt-2 shrink-0">
-        <a href={curripaAnchor} target="_blank" rel="noopener noreferrer" class="block hover:opacity-70 transition-opacity" aria-label="Ver en curripa.github.io">
+        <a href={curripaAnchor} class="block hover:opacity-70 transition-opacity" aria-label="Ver en curripa.github.io">
           <img src={`${curripaOrigin}/SVG/Curripa.svg`} alt="Curripa" class="h-7 w-auto" />
         </a>
         {bandcampMusic ? (
-          <a href={bandcampMusic} target="_blank" rel="noopener noreferrer" class="font-heading text-3xl tracking-[0.35em] hover:opacity-70 transition-opacity block translate-x-[0.175em]" aria-label="Bandcamp">BANDCAMP</a>
+          <a href={bandcampMusic} class="font-heading text-3xl tracking-[0.35em] hover:opacity-70 transition-opacity block translate-x-[0.175em]" aria-label="Bandcamp">BANDCAMP</a>
         ) : (
           <p class="text-center text-xs opacity-50 border border-current/20 py-2">Bandcamp no disponible</p>
         )}
